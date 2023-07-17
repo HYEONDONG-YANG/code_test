@@ -1,0 +1,28 @@
+정렬 / 그리디 문제
+Arrays.sort(targets, ((x, y) -> x[0] - y[0])); (정렬부분이 핵심)
+(x,y)->x[0] - y[0] 람다식
+x[0] - y[0] 은 오름차순의 Comparator
+
+기존 소스
+Arrays.sort(targets, new Comparator<int[]>(){
+          public int compare(int[] x, int[] y) {
+            return x[0] - y[0];
+        }
+});
+
+람다식
+Arrays.sort(targets, ((x, y) -> x[0] - y[0]));  
+
+
+x[0] - y[0] //오름차순
+y[0] - x[0] //내림차순 
+
+
+풀이1의 그리디 알고리즘은
+// 시작값을 비교  
+// 시작 구간은 더 큰 값을 기준으로 변경
+// 끝 구간은 더 작은 값을 기준으로 변경 합니다.  
+
+풀이2의 그리디 알고리즘은
+// 시작값을 비교
+// 시작값이 끝구간 값보다 큰경우 시작값의 끝값을  기준으로 변경     
