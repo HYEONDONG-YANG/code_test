@@ -52,7 +52,7 @@ public class Main {
 					return o1[0] - o2[0];
 				}
 				
-				return o1[1] - o2[1];
+				return o1[1] - o2[1]; //종료시간 기준 오름차순 정렬
 			}
  
 		});
@@ -75,7 +75,7 @@ public class Main {
         System.out.println(count);
     }
 }
-//1회차 실패
+//1회차 실패 , 시작시간기준 정렬을 하여 틀림.
 /*
 import java.util.*;
 
