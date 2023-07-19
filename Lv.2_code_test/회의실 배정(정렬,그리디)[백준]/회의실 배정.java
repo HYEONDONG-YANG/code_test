@@ -28,6 +28,57 @@
 
 import java.util.*;
 
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt();
+
+        int[][] time = new int[N][2];
+
+
+        for(int i = 0; i < N; i++) {
+            time[i][0] = in.nextInt();	//시작시간
+            time[i][1] = in.nextInt();	//종료시간
+        }
+
+		Arrays.sort(time, new Comparator<int[]>() {
+			
+			@Override
+			public int compare(int[] o1, int[] o2) {
+				
+				// 종료시간이 같을 경우 시작시간이 빠른순으로 정렬해야한다.  
+				if(o1[1] == o2[1]) {
+					return o1[0] - o2[0];
+				}
+				
+				return o1[1] - o2[1];
+			}
+ 
+		});
+
+        int count = 0;
+        int curEnd= 0;
+
+        for(int i = 0; i < N; i++) {
+           int start =time[i][0];   //시작시간
+           if(start>=curEnd){        //시작시간이 종료시간보다 큰지 확인
+               curEnd=time[i][1];   //시작시간이 더큰 회의의 종료시간으로 변경
+               count++;
+           }
+        }
+        /*for(int i = 0; i < N; i++) {
+            System.out.print(time[i][0]+"/");
+            System.out.println(time[i][1]);
+        }*/
+
+        System.out.println(count);
+    }
+}
+//1회차 실패
+/*
+import java.util.*;
+
 public class Test {
     public static void main(String[] args) {
 
@@ -62,3 +113,4 @@ public class Test {
         System.out.println(count);
     }
 }
+*/
