@@ -39,9 +39,71 @@
 432
 */
 
-//다익스트라를 공부하기 위해 문제를 보았고, 어설프게 풀기보다는 다른사람의 풀이를 이해하는게 더 낫다고 판단.
+//2회차, 1회차에 풀이를 분석하고 다익스트라 알고리즘을 공부하고 다시 풀어봄
+import java.io.*;
+import java.util.*;
 
+public class Main {
+    static List<int[]> list[];
+    static int N, D;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N=madeInt(st.nextToken());  //지름길의 개수
+        D=madeInt(st.nextToken());  //고속도로의 길이
+        list = new ArrayList[D+1];    //지름길 리스트
 
+        for(int i=0; i<=D; i++) {
+            list[i]=new ArrayList<>();
+        }
+
+        for(int i=0; i<N; i++) {
+            st = new StringTokenizer(br.readLine());
+            int a = madeInt(st.nextToken());    //시작위치
+            int b = madeInt(st.nextToken());    //도착위치
+            int c = madeInt(st.nextToken());    //지름길 길이
+            if((b-a)>c && D>=b) {                //정상길이보다 지름길의 길이가 더 짧은 경우, 도착위치가 고속도로 길이를 넘지 않는경우
+                list[a].add(new int[]{b, c});   //시작위치의 인덱스에 배열로 도착위치,지름길의 길이를 저장
+            }
+        }
+        //주행배열
+        int drive[] = new int[D+1];
+
+        //고속도로의 길이 D만큼 주행배열에 정상주행 +1값씩 저장
+        for(int i=0; i<=D; i++) {
+            drive[i]=i;
+        }
+
+        for(int i=0; i<=D; i++) {
+            if(i!=0) {
+                //시작위치 i의 주행길이가 지름길로인해 줄어든 경우를 위해 비교
+                drive[i] = Math.min(drive[i - 1] + 1, drive[i]);
+            }
+            //시작위치 i에 지름길이 있는경우
+            if(list[i].size()>0) {
+                for(int load[]: list[i]) {
+                    int end = load[0];
+                    int length = load[1];
+
+                    //시작위치 i의 정상주행길이 + 지름길 길이가 도착위치의 길이보다 더 짧을경우
+                    if(drive[end] > drive[i]+length) {
+                        drive[end] = drive[i]+length;
+                    }
+                }
+            }
+
+        }
+        System.out.println(drive[D]);
+    }
+    //입력받은 값을 int형으로 변환
+    static int madeInt(String s) {
+        return Integer.valueOf(s);
+    }
+}
+
+//1회차,다익스트라를 공부하기 위해 문제를 보았고, 어설프게 풀기보다는 다른사람의 풀이를 이해하는게 더 낫다고 판단.
+
+/*
 import java.io.*;
 import java.util.*;
 
@@ -92,3 +154,4 @@ public class Main {
 		return Integer.valueOf(s);
 	}
 }
+*/
