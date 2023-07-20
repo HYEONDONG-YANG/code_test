@@ -16,56 +16,17 @@ targets	result
 [[4,5],[4,8],[10,14],[11,13],[5,12],[3,7],[1,4]]	3
 */
 
-//Array.sort 생각을못하여 풀지 못함
+//Array.sort 생각을못하여 풀지 못함, 그리디알고리즘을 몰라 풀지 못함.
 
-//풀이1
-/*
-import java.util.*;
- 
-class Solution {
-    public int solution(int[][] targets) {
-        int answer = 0;
-        
-        Arrays.sort(targets, ((x, y) -> x[0] - y[0]));
-        
-        int preStart = targets[0][0];
-        int preEnd = targets[0][1];
-            
-        for (int[] target : targets) {
-            if (answer == 0) {
-                answer += 1;
-                continue;
-            }
-            
-            int curStart = target[0];
-            int curEnd = target[1];
-            
-            if (preStart <= curStart && curStart < preEnd) {
-            	// 요격 구간이 계속 변경
-                // 시작 구간은 더 큰 값을 기준으로 변경
-                // 끝 구간은 더 작은 값을 기준으로 변경 합니다.
-                preStart = Math.max(preStart, curStart);
-                preEnd = Math.min(preEnd, curEnd);
-            } else {
-                preStart = curStart;
-                preEnd = curEnd;
-                answer += 1;
-            }        
-        }
-    
-        return answer;
-    }
-}
-*/
-
-//풀이2
+//풀이
 /*
 import java.util.*;
 
 class Solution {
     public int solution(int[][] targets) {
         int answer = 0;
-        
+
+        //[정렬]적용
         Arrays.sort(targets, (o1, o2) -> {
             if(o1[1] == o2[1]){
                 return o1[0] - o2[0];
@@ -75,7 +36,8 @@ class Solution {
         
         int end = targets[0][1];
         answer++; // 첫 번째로 만들어지는 요격 시스템
-        
+
+        //[그리디 알고리즘] 적용
         for(int[] tar : targets){
             if(tar[0] >= end){
                 end = tar[1];
